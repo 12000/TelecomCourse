@@ -5,7 +5,11 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <string.h>
+#include <unistd.h> // для ch_dir
 #include "view.h"
+#include "get_dir.h"
+#include "view_dir.h"
+#include "ch_dir.h"
 
 #define PORT        1234
 
@@ -16,11 +20,13 @@ int main(){
     struct sockaddr_in addr;
     char buffer[MAXBUF];
     char dir[MAXBUF] = "/home/user/server/server_work";
-    //char dir[MAXBUF] = "/home/user";
+    // инициализация рабочей директории
+    //chdir("/home/user/server/server_work");
+    chdir(dir);
 
     //Создание сокета TCP
     //AF_INET - стек протоколов TCP/IP, SOXK_STREAM - создание надежного сокета
-    //0 - протокло определяется типом сокета
+    //0 - протокол определяется типом сокета
 
     printf("Создание сокета\n");
     if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 )
@@ -74,19 +80,24 @@ int main(){
           // send(clientfd, "WORK DIRECTORY/\n", 16, 0);
            view(dir, 5, clientfd);
 
-           int depth = 0;
-            bzero( buffer, MAXBUF);
-            sprintf( buffer, "%d", depth);
-            send(clientfd, buffer, MAXBUF, 0);
+           bzero( buffer, MAXBUF);
+           sprintf( buffer, "%d", 0);
+           strcat(buffer, "|");
+           strcat(buffer, "d");
+           strcat(buffer, "|");
+           strcat(buffer, "end");
+           send(clientfd, buffer, MAXBUF, 0);
+        }
+       if (strcmp(buffer, "view_dir\r\n") == 0){
+           view_dir(buffer, MAXBUF, clientfd);
 
-            //отправка символа папки/файла
-             bzero( buffer, MAXBUF);
-             strcpy(buffer, "dir");
-             send(clientfd, buffer, MAXBUF, 0);
-
-            bzero( buffer, MAXBUF);
-            strcpy(buffer, "end");
-            send(clientfd, buffer, MAXBUF, 0);
+           bzero( buffer, MAXBUF);
+           sprintf( buffer, "%d", 0);
+           strcat(buffer, "|");
+           strcat(buffer, "d");
+           strcat(buffer, "|");
+           strcat(buffer, "end");
+           send(clientfd, buffer, MAXBUF, 0);
         }
        else if (strcmp(buffer,"disconnect\r\n")==0){
            //завершение соединения
@@ -94,7 +105,13 @@ int main(){
            close(clientfd);
            break;
        }
-        else{
+       else if (strcmp(buffer,"get_dir\r\n")==0){
+           get_dir(buffer, MAXBUF, clientfd);
+       }
+       else if (strcmp(buffer,"ch_dir\r\n")==0){
+           ch_dir(buffer, MAXBUF, clientfd);
+       }
+       else{
              send(clientfd, "void \n", 5, 0);
         }
     }

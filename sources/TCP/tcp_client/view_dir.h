@@ -1,11 +1,11 @@
-#ifndef VIEW_H
-#define VIEW_H
+#ifndef view_dir_DIR_H
+#define view_dir_DIR_H
 #include <string.h>
 #include <math.h>
 
-int view(char* buffer, int sock, int buf_size){
+int view_dir(char* buffer, int sock, int buf_size){
     bzero( buffer, buf_size);
-    strcpy(buffer, "view\r\n");
+    strcpy(buffer, "view_dir\r\n");
     send(sock, buffer, buf_size, 0);
     while(1){
         int depth;
@@ -61,5 +61,5 @@ int view(char* buffer, int sock, int buf_size){
     return 0;
 }
 
-#endif // VIEW_H
+#endif // view_dir_dir_DIR
 

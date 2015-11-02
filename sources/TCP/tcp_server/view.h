@@ -27,50 +27,30 @@ void view(char *dir, int depth, int clientfd) {
                 if (strcmp(".", entry->d_name) == 0 || strcmp("..", entry->d_name) == 0)
                          continue;
 
-                 // отправка пробелов
                  bzero( buffer, MAXBUF);
                  sprintf( buffer, "%d", depth);
+                 strcat(buffer, "|");
+                 strcat(buffer, "d");
+                 strcat(buffer, "|");
+                 strcat(buffer, entry->d_name);
                  send(clientfd, buffer, MAXBUF, 0);
-
-                 //отправка символа папки/файла
-                  bzero( buffer, MAXBUF);
-                  strcpy(buffer, "file");
-                  send(clientfd, buffer, MAXBUF, 0);
-
-                 //отправка строки
-                  bzero( buffer, MAXBUF);
-                  strcpy(buffer, entry->d_name);
-                  //buffer[strlen(buffer)] = "/";
-                  send(clientfd, buffer, MAXBUF, 0);
 
                 int new_depth = depth + 6;
                  // Рекурсивный вызов с новый отступом
                  view(entry->d_name, new_depth, clientfd);
          }
           else {
-              // отправка пробелов
-              bzero( buffer, MAXBUF);
-              sprintf( buffer, "%d", depth);
-              printf("%s", buffer);
-              send(clientfd, buffer, MAXBUF, 0);
-               printf("depth = %d", depth);
-
-               //отправка символа папки/файла
-                bzero( buffer, MAXBUF);
-                strcpy(buffer, "dir");
-                send(clientfd, buffer, MAXBUF, 0);
-
-              //отправка строки
-               bzero( buffer, MAXBUF);
-               strcpy(buffer, entry->d_name);
-               send(clientfd, buffer, MAXBUF, 0);
-               printf("%s", buffer);
+             bzero( buffer, MAXBUF);
+             sprintf( buffer, "%d", depth);
+             strcat(buffer, "|");
+             strcat(buffer, "f");
+             strcat(buffer, "|");
+             strcat(buffer, entry->d_name);
+             send(clientfd, buffer, MAXBUF, 0);
           }
   }
-
  chdir("..");
  closedir(dp);
-
 }
 #endif // VIEW_H
 

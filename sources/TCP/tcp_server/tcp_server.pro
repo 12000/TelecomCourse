@@ -6,5 +6,8 @@ CONFIG -= qt
 SOURCES += main.c
 
 HEADERS += \
-    view.h
+    view.h \
+    get_dir.h \
+    view_dir.h \
+    ch_dir.h
 
