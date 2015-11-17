@@ -3,21 +3,32 @@
 #include <unistd.h>
 #include <string.h>
 
-int ch_dir(char *buffer, int buf_size, int clientfd){
-    bzero(buffer, buf_size);
-    recv(clientfd, buffer, buf_size, 0);
+int ch_dir(char *buffer, int size, int sock){
+    bzero(buffer, size);
+    recv(sock, buffer, size, 0);
     int i;
-    i = chdir(buffer);
-    /*if(i==0){
-        bzero(buffer, buf_size);
-        strcpy(buffer, "Успешно\n");
-        send(clientfd, buffer, buf_size, 0);
+    char dir[256] = "/home/user/server/server_work";
+    strcat(dir, buffer);
+    i = chdir(dir);
+    if (i == -1){
+        bzero(buffer, size);
+        strcpy(buffer, "Недействительный путь!");
+        send(sock, buffer, size, 0);
+
+        bzero(buffer, size);
+        getcwd(buffer, size);
+        send(sock, buffer, size, 0);
     }
     else{
-        bzero(buffer, buf_size);
-        strcpy(buffer, "Неудача\n");
-        send(clientfd, buffer, buf_size, 0);
-    }*/
+        bzero(buffer, size);
+        strcpy(buffer, "succes");
+        send(sock, buffer, size, 0);
+
+        bzero(buffer, size);
+        getcwd(buffer, size);
+        send(sock, buffer, size, 0);
+    }
+    printf("%s\n", dir);
     return 0;
 }
 

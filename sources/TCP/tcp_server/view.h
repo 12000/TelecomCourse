@@ -9,6 +9,7 @@
 
 #define MAXBUF 1024
 void view(char *dir, int depth, int clientfd) {
+    //chdir("/home/user/server/server_work");
     // буфер для послыки
     char buffer[MAXBUF];
     DIR *dp;
@@ -51,6 +52,7 @@ void view(char *dir, int depth, int clientfd) {
   }
  chdir("..");
  closedir(dp);
+ //chdir("/home/user/server/server_work");
 }
 #endif // VIEW_H
 

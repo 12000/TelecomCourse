@@ -9,5 +9,8 @@ HEADERS += \
     view.h \
     get_dir.h \
     view_dir.h \
-    ch_dir.h
+    ch_dir.h \
+    download.h \
+    mk_dir.h \
+    rm_dir.h
 

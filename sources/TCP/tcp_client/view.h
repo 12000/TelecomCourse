@@ -4,9 +4,11 @@
 #include <math.h>
 
 int view(char* buffer, int sock, int buf_size){
+     printf("Рабочий каталог: server_work/\n");
     bzero( buffer, buf_size);
     strcpy(buffer, "view\r\n");
     send(sock, buffer, buf_size, 0);
+
     while(1){
         int depth;
         int i;

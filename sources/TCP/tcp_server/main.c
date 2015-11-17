@@ -10,6 +10,9 @@
 #include "get_dir.h"
 #include "view_dir.h"
 #include "ch_dir.h"
+#include "download.h"
+#include "mk_dir.h"
+#include "rm_dir.h"
 
 #define PORT        1234
 
@@ -69,52 +72,65 @@ int main(){
         clientfd = accept(sockfd, (struct sockaddr*)&client_addr,&addrlen);
         printf("%s:%d connected\n", inet_ntoa(client_addr.sin_addr),
                 ntohs(client_addr.sin_port));
-        send(clientfd, "Connected\n", 10, 0);
+        send(clientfd, "Connected (server message)\n", 28, 0);
 
-    while(1){
-        bzero(buffer, MAXBUF);
-        recv(clientfd, buffer, MAXBUF, 0);
+        while(1){
 
-        // Проверка команд
-       if (strcmp(buffer, "view\r\n") == 0){
-          // send(clientfd, "WORK DIRECTORY/\n", 16, 0);
-           view(dir, 5, clientfd);
+             bzero(buffer, MAXBUF);
+             recv(clientfd, buffer, MAXBUF, 0);
 
-           bzero( buffer, MAXBUF);
-           sprintf( buffer, "%d", 0);
-           strcat(buffer, "|");
-           strcat(buffer, "d");
-           strcat(buffer, "|");
-           strcat(buffer, "end");
-           send(clientfd, buffer, MAXBUF, 0);
+            // Проверка команд
+             if (strcmp(buffer, "view\r\n") == 0){
+                 // send(clientfd, "WORK DIRECTORY/\n", 16, 0);
+                view(dir, 5, clientfd);
+
+                bzero( buffer, MAXBUF);
+                sprintf( buffer, "%d", 0);
+                strcat(buffer, "|");
+                strcat(buffer, "d");
+                 strcat(buffer, "|");
+                strcat(buffer, "end");
+                send(clientfd, buffer, MAXBUF, 0);
+             }
+            if (strcmp(buffer, "view_dir\r\n") == 0){
+                chdir("/home/user/server/server_work");
+                view_dir(buffer, MAXBUF, clientfd);
+
+                bzero( buffer, MAXBUF);
+                sprintf( buffer, "%d", 0);
+                strcat(buffer, "|");
+                strcat(buffer, "d");
+                strcat(buffer, "|");
+                 strcat(buffer, "end");
+                send(clientfd, buffer, MAXBUF, 0);
+                chdir("/home/user/server/server_work");
+            }
+            else if (strcmp(buffer,"disconnect")==0){
+                //завершение соединения
+                send(clientfd, "Client Disconnect!\n", 18, 0);
+                close(clientfd);
+                break;
+            }
+            else if (strcmp(buffer,"get_dir\r\n")==0){
+                get_dir(buffer, MAXBUF, clientfd);
+            }
+            else if (strcmp(buffer,"ch_dir\r\n")==0){
+                ch_dir(buffer, MAXBUF, clientfd);
+            }
+            else if (strcmp(buffer,"upload\r\n")==0){
+                download(buffer, MAXBUF, clientfd);
+            }
+            else if (strcmp(buffer,"mk_dir\r\n")==0){
+                mk_dir(buffer, MAXBUF, clientfd, S_IRWXU);
+            }
+            else if (strcmp(buffer,"rm_dir\r\n")==0){
+                rm_dir(buffer, MAXBUF, clientfd);
+            }
+            else{
+                    printf("%s", buffer);
+                    send(clientfd, "void \n", 5, 0);
+             }
         }
-       if (strcmp(buffer, "view_dir\r\n") == 0){
-           view_dir(buffer, MAXBUF, clientfd);
-
-           bzero( buffer, MAXBUF);
-           sprintf( buffer, "%d", 0);
-           strcat(buffer, "|");
-           strcat(buffer, "d");
-           strcat(buffer, "|");
-           strcat(buffer, "end");
-           send(clientfd, buffer, MAXBUF, 0);
-        }
-       else if (strcmp(buffer,"disconnect\r\n")==0){
-           //завершение соединения
-           send(clientfd, "Client Disconnect!\n", 18, 0);
-           close(clientfd);
-           break;
-       }
-       else if (strcmp(buffer,"get_dir\r\n")==0){
-           get_dir(buffer, MAXBUF, clientfd);
-       }
-       else if (strcmp(buffer,"ch_dir\r\n")==0){
-           ch_dir(buffer, MAXBUF, clientfd);
-       }
-       else{
-             send(clientfd, "void \n", 5, 0);
-        }
-    }
         break;
 }
 

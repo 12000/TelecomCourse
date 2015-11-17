@@ -10,5 +10,8 @@ HEADERS += \
     help.h \
     get_dir.h \
     view_dir.h \
-    chdir.h
+    chdir.h \
+    upload.h \
+    mk_dir.h \
+    rm_dir.h
 

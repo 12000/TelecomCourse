@@ -8,6 +8,9 @@
 #include "get_dir.h"
 #include "view_dir.h"
 #include "chdir.h"
+#include "upload.h"
+#include "rm_dir.h"
+#include "mk_dir.h"
 
 #define MAXBUF  1024
 #define PORT    1234
@@ -56,6 +59,12 @@ int main()
                     get_dir(buffer, sock, MAXBUF);
              else if(strcmp(buffer, "ch_dir") == 0)
                     ch_dir(buffer, sock, MAXBUF);
+             else if(strcmp(buffer, "upload") == 0)
+                    upload(buffer, MAXBUF, sock);
+             else if(strcmp(buffer, "mk_dir") == 0)
+                    mk_dir(buffer, MAXBUF, sock);
+             else if(strcmp(buffer, "rm_dir") == 0)
+                    rm_dir(buffer, MAXBUF, sock);
              else
                     printf("unknown comand\n");
              printf("Для получения справки введите команду help\n");

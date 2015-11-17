@@ -1,19 +1,26 @@
 #ifndef CHDIR
 #define CHDIR
+#include <string.h>
 
-int ch_dir(char *buffer, int sock, int buf_size){
-    bzero(buffer, buf_size);
+int ch_dir(char *buffer, int sock, int size){
+    bzero(buffer, size);
     strcpy(buffer, "ch_dir\r\n");
-    send(sock, buffer, buf_size, 0);
+    send(sock, buffer, size, 0);
 
     printf("путь: ");
-    bzero(buffer, buf_size);
+    bzero(buffer, size);
     scanf("%s", buffer);
-    send(sock, buffer, buf_size, 0);
+    send(sock, buffer, size, 0);
 
-    //bzero(buffer, buf_size);
-    //recv(sock, buffer, buf_size, 0);
-   // printf("%s\n", buffer);
+    //прием ошибки либо сообщения об успехе
+    bzero(buffer, size);
+    recv(sock, buffer, size, 0);
+    if(strcmp(buffer, "succes") != 0)
+       printf("Неверный каталог!");
+
+    bzero(buffer, size);
+    recv(sock, buffer, size, 0);
+    printf("Текущий каталог: %s\n", buffer);
     return 0;
 }
 
