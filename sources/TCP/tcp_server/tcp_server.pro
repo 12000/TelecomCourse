@@ -2,7 +2,7 @@ TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
-
+QMAKE_LFLAGS += -pthread
 SOURCES += main.c
 
 HEADERS += \
@@ -12,5 +12,7 @@ HEADERS += \
     ch_dir.h \
     download.h \
     mk_dir.h \
-    rm_dir.h
+    rm_dir.h \
+    connection_handler.h \
+    upload.h
 

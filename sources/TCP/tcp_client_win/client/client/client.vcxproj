@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chdir.h" />
+    <ClInclude Include="download.h" />
+    <ClInclude Include="echo.h" />
     <ClInclude Include="get_dir.h" />
     <ClInclude Include="help.h" />
     <ClInclude Include="mk_dir.h" />

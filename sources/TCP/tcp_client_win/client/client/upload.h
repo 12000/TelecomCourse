@@ -2,12 +2,13 @@
 #define UPLOAD
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 int upload(char* buffer, int size, int sock){
     char name[1024];
     int fileSize;
     int message_length;
-
+	time_t start_time, finish_time;
     FILE* f;
 
     printf("Путь: ");
@@ -40,6 +41,8 @@ int upload(char* buffer, int size, int sock){
     sprintf(buffer, "%d", fileSize);
     send(sock, buffer, size, 0);
 
+	// запомнить время начала
+	start_time = time(NULL);
     while(fileSize > 0){
         memset(buffer, 0, size);
         if(fileSize >=1024){
@@ -49,7 +52,7 @@ int upload(char* buffer, int size, int sock){
                     send(sock, buffer, size, 0);
             memset(buffer, 0, size);
             recv(sock, buffer, size, 0);
-            printf("Передача - было принято: %s\n", buffer);
+            printf("Передача - было принято сервером: %s\n", buffer);
         }
         else{
             message_length = fread(buffer, fileSize, 1, f);
@@ -58,11 +61,14 @@ int upload(char* buffer, int size, int sock){
                     send(sock, buffer, fileSize, 0);
             memset(buffer, 0, size);
             recv(sock, buffer, size, 0);
-            printf("Передача - было принято: %s\n", buffer);
+            printf("Передача - было принято сервером: %s\n", buffer);
         }
         fileSize -= 1024;
     }
+	// запомнить время завершния передачи
+	finish_time = time(NULL);
     fclose(f);
+	printf("Время передачи: %f\n", difftime(finish_time, start_time));
     return 0;
 }
 

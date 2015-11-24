@@ -47,31 +47,6 @@ int download(char *buffer, size_t size, int sock){
        return -1;
    }
 
-    /*while(true){
-        f = fopen("/home/user/server/server_work/456.txt", "a");
-        //f = fopen(name, "a");
-
-        //прием
-        r = recv(sock, buffer, size, 0);
-        if(r <= 0){
-            printf("Recv error\n");
-            bzero(send_buf, size);
-            sprintf(send_buf, "%s", "Rcv error");
-            send(sock, send_buf, size, 0);
-            //return false;
-            break;
-        }
-        else{
-            bzero(send_buf, size);
-            sprintf(send_buf, "%d", r);
-            send(sock, send_buf, size, 0);
-        }
-
-        //запись
-        fwrite(buffer, 1, r, f);
-        fclose(f);
-    }*/
-
    while(fileSize > 0){
        if(fileSize >=1024){
            bzero(buffer, size);

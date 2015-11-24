@@ -17,9 +17,11 @@
 #include "upload.h"
 #include "rm_dir.h"
 #include "mk_dir.h"
+#include "echo.h"
+#include "download.h"
 
-  #define PORT 1234
-  #define SERVERADDR "192.168.1.44"
+#define PORT 1234
+#define SERVERADDR "192.168.1.44"
 #define MAXBUF  1024
 
   int main()
@@ -27,7 +29,7 @@
     setlocale(LC_ALL, "Russian");
 	  char buffer[MAXBUF];
 
-    // Шаг 1 - инициализация библиотеки Winsock
+    //инициализация библиотеки Winsock
     if (WSAStartup(0x202,(WSADATA *)&buffer[0]))
     {
       printf("WSAStart error %d\n",WSAGetLastError());
@@ -35,7 +37,7 @@
       return -1;
     }
 
-    // Шаг 2 - создание сокета
+    //создание сокета
     SOCKET sock;
     sock=socket(AF_INET,SOCK_STREAM,0);
     if (sock < 0)
@@ -45,8 +47,7 @@
       return -1;
     }
 
-    // Шаг 3 - установка соединения
-
+    //установка соединения
     // заполнение структуры sockaddr_in
     // указание адреса и порта сервера
     sockaddr_in dest_addr;
@@ -75,8 +76,6 @@
         return -1;
       }
 
-    // адрес сервера получен – пытаемся установить
-    // соединение 
     if (connect(sock,(sockaddr *)&dest_addr,
                 sizeof(dest_addr)))
     {
@@ -85,40 +84,6 @@
       return -1;
     }
 
-    printf("Соединение с %s успешно установлено\n",SERVERADDR);
-
-    // Шаг 4 - чтение и передача сообщений
-    /*int nsize;
-    while((nsize=recv(sock,&buffer[0],
-                      sizeof(buffer)-1,0))
-                  !=SOCKET_ERROR)
-    {
-      // ставим завершающий ноль в конце строки 
-      buffer[nsize]=0;
-
-      // выводим на экран 
-      printf("S=>C:%s",buffer);
-
-      // читаем пользовательский ввод с клавиатуры
-      printf("S<=C:"); fgets(&buffer[0],sizeof(buffer)-1,
-             stdin);
-
-      // проверка на "quit"
-      if (!strcmp(&buffer[0],"quit\n"))
-      {
-        // Корректный выход
-        printf("Exit...");
-        closesocket(sock);
-        WSACleanup();
-		_getch();
-        return 0;
-      }
-
-      // передаем строку клиента серверу
-      send(sock,&buffer[0],nsize,0);
-    }*/
-
-    //printf("Recv error %d\n",WSAGetLastError());
 	//-----------------------------------------------
 	memset(buffer, 0, MAXBUF);
     recv(sock , buffer , MAXBUF , 0); // прием слова
@@ -141,10 +106,14 @@
             ch_dir(buffer, sock, MAXBUF);
         else if(strcmp(buffer, "upload") == 0)
             upload(buffer, MAXBUF, sock);
+		else if(strcmp(buffer, "download") == 0)
+            download(buffer, MAXBUF, sock);
         else if(strcmp(buffer, "mk_dir") == 0)
             mk_dir(buffer, MAXBUF, sock);
         else if(strcmp(buffer, "rm_dir") == 0)
             rm_dir(buffer, MAXBUF, sock);
+		else if(strcmp(buffer, "echo") == 0)
+            echo(buffer, sock, MAXBUF);
 		else if(strcmp(buffer, "disconnect") == 0){
             send(sock, "disconnect", 10, 0);
 			break;
