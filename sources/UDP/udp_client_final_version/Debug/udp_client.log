@@ -1,0 +1,72 @@
+﻿Построение начато 28.12.2015 16:41:34.
+     1>Проект "D:\univer\4\Telekom\udp_client\udp_client\udp_client\udp_client.vcxproj" в узле 2 (целевые объекты build).
+     1>InitializeBuildStatus:
+         Создание "Debug\udp_client.unsuccessfulbuild", так как было задано "AlwaysCreate".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\view.h(9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\view.h(37): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\get_dir.h(7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\view_dir.h(8): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\view_dir.h(35): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\chdir.h(7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\chdir.h(13): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(22): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(24): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234): см. объявление "fopen"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(31): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(34): warning C4244: аргумент: преобразование "double" в "DWORD", возможна потеря данных
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(44): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(371): см. объявление "sprintf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(53): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(56): warning C4244: аргумент: преобразование "double" в "DWORD", возможна потеря данных
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(70): warning C4244: аргумент: преобразование "double" в "DWORD", возможна потеря данных
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\upload.h(84): warning C4244: аргумент: преобразование "double" в "DWORD", возможна потеря данных
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\rm_dir.h(7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\rm_dir.h(13): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\mk_dir.h(7): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\mk_dir.h(13): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\echo.h(7): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\download.h(22): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105): см. объявление "strcpy"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\download.h(29): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\download.h(45): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\download.h(48): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110): см. объявление "strcat"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\download.h(49): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(110): см. объявление "strcat"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\download.h(52): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234): см. объявление "fopen"
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\download.h(67): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+     1>d:\univer\4\telekom\udp_client\udp_client\udp_client\main.cpp(151): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\univer\4\Telekom\udp_client\udp_client\Debug\udp_client.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\udp_client.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\univer\4\Telekom\udp_client\udp_client\Debug\udp_client.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\univer\4\Telekom\udp_client\udp_client\Debug\udp_client.lib" /MACHINE:X86 Debug\main.obj
+         LINK : не найден или не выполнена сборка D:\univer\4\Telekom\udp_client\udp_client\Debug\udp_client.exe при последней инкрементной компоновке; выполняется полная компоновка
+         udp_client.vcxproj -> D:\univer\4\Telekom\udp_client\udp_client\Debug\udp_client.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"D:\univer\4\Telekom\udp_client\udp_client\Debug\udp_client.exe;#1" /manifest Debug\udp_client.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Файл "Debug\udp_client.unsuccessfulbuild" удаляется.
+         Обращение к "Debug\udp_client.lastbuildstate".
+     1>Построение проекта "D:\univer\4\Telekom\udp_client\udp_client\udp_client\udp_client.vcxproj" завершено (целевые объекты build).
+
+Построение успешно завершено.
+
+Затраченное время: 00:00:03.35

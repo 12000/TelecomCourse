@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int download(char *buffer, size_t size, int sock){
+int download(char *buffer, size_t size, int sock, struct sockaddr_in si_other, int slen){
     int r;
     int p;
     int i = 0;
@@ -15,7 +15,8 @@ int download(char *buffer, size_t size, int sock){
 
     //прием и формирование размера файла
     bzero(buffer, size);
-    recv(sock, buffer, size, 0);
+    //recv(sock, buffer, size, 0);
+    recvfrom(sock, buffer, size, 0, (struct sockaddr *) &si_other, &slen);
     while(buffer[i] != '\0'){
           i++;
           k++;
@@ -30,7 +31,9 @@ int download(char *buffer, size_t size, int sock){
 
     // прием имени файла
     bzero(buffer, size);
-    recv(sock, buffer, size, 0);
+    //recv(sock, buffer, size, 0);
+    recvfrom(sock, buffer, size, 0, (struct sockaddr *) &si_other, &slen);
+
     // формирование пути
     bzero(name, size);
     getcwd(name, size);
@@ -50,53 +53,33 @@ int download(char *buffer, size_t size, int sock){
     while(fileSize > 0){
        if(fileSize >=size){
            bzero(buffer, size);
-           r = recv(sock, buffer, size, 0);
+          // r = recv(sock, buffer, size, 0);
+           r = recvfrom(sock, buffer, size, 0, (struct sockaddr *) &si_other, &slen);
            fwrite(buffer, 1, size, f); // записываем весь буфер
 
            // отправка клиенту
            bzero(send_buf, size);
            sprintf(send_buf, "%d",r );
-           send(sock, send_buf, size, 0);
+           //send(sock, send_buf, size, 0);
+           sendto(sock, send_buf, size, 0, (struct sockaddr*) &si_other, slen);
+           sleep(1);
        }
        else{
            bzero(buffer, size);
-           r = recv(sock, buffer, size, 0);
+          // r = recv(sock, buffer, size, 0);
+           r = recvfrom(sock, buffer, MAXBUF, 0, (struct sockaddr *) &si_other, &slen);
            fwrite(buffer, 1, fileSize, f); //записываем только сколько надо
 
            // отправка клиенту
            bzero(send_buf, size);
            sprintf(send_buf, "%d",r );
-           send(sock, send_buf, size, 0);
+           //send(sock, send_buf, size, 0);
+           sendto(sock, send_buf, size, 0, (struct sockaddr*) &si_other, slen);
+           sleep(1);
        }
        fileSize -=size;
    }
 
-  /*while(fileSize > 0){
-          if(fileSize >=fbuf_size){
-              bzero(f_buf, fbuf_size);
-              r = recv(sock, f_buf, fbuf_size, 0);
-              fwrite(f_buf, 1, size, f); // записываем весь буфер
-
-              // отправка клиенту
-              bzero(send_buf, size);
-              sprintf(send_buf, "%d",r );
-              send(sock, send_buf, size, 0);
-          }
-          else{
-              bzero(f_buf, fbuf_size);
-              r = recv(sock, f_buf, fbuf_size, 0);
-              fwrite(f_buf, 1, fileSize, f); //записываем только сколько надо
-
-              // отправка клиенту
-              bzero(send_buf, size);
-              sprintf(send_buf, "%d",r );
-              send(sock, send_buf, size, 0);
-          }
-          fileSize -=fbuf_size;
-          printf("now fileSize: %d\n", fileSize);
-          printf("now r: %d\n", r);
-          sleep(2);
-      }*/
    printf("succes!\n");
    fclose(f);
    //free(f_buf);
@@ -104,4 +87,3 @@ int download(char *buffer, size_t size, int sock){
 }
 
 #endif // DOWNLOAD
-

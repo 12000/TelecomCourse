@@ -14,7 +14,6 @@
 int main(){
     int sockfd;
     struct sockaddr_in addr, client;
-    char buffer[MAXBUF];
     char dir[MAXBUF] = "/home/user/server/server_work";
     // инициализация рабочей директории
     chdir(dir);
@@ -60,7 +59,7 @@ int main(){
         puts("Connection accepted");
 
         pthread_t sniffer_thread;
-        new_sock = malloc(1);
+        new_sock = malloc(4);
         *new_sock = client_sock;
 
         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_sock) < 0)
@@ -76,9 +75,6 @@ int main(){
         perror("accept failed");
         return 1;
     }
-//printf("Сервер остановлен!!!\n");
-//Закрытие сокета
-//close(sockfd);
     return 0;
 }
 

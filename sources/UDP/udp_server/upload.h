@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int upload(char* buffer, int size, int sock){
+int upload(char* buffer, int size, int sock, struct sockaddr_in si_other, int slen){
     char name[2048], trace[2048];
     int fileSize;
     int message_length;
@@ -12,28 +12,33 @@ int upload(char* buffer, int size, int sock){
 
     //прием имени файла
     bzero(name, size);
-    recv(sock, name, size, 0);
+    //recv(sock, name, size, 0);
+    int r = recvfrom(sock, name, size, 0, (struct sockaddr *) &si_other, &slen);
+    printf("%d\n", r);
 
     //формирование пути открытия файла
     bzero(trace, size);
     getcwd(trace, size);
     strcat(trace, "/");
     strcat(trace, name);
+    printf("%s\n", trace);
 
     f = fopen(name, "rb");
     if(f == NULL){
         printf("File dont open\n");
         bzero(buffer, size);
         strcpy(buffer, "false");
-        send(sock, buffer, size, 0);
-        sleep(0.01);
+        //send(sock, buffer, size, 0);
+        sendto(sock, buffer, size, 0, (struct sockaddr*) &si_other, slen);
+        sleep(1);
         return -1;
     }
     else{
         bzero(buffer, size);
         strcpy(buffer, "true");
-        send(sock, buffer, size, 0);
-        sleep(0.01);
+        //send(sock, buffer, size, 0);
+        sendto(sock, buffer, size, 0, (struct sockaddr*) &si_other, slen);
+        sleep(1);
     }
 
 
@@ -45,8 +50,9 @@ int upload(char* buffer, int size, int sock){
     bzero(buffer, size);
     //strcpy(buffer, (char)fileSize);
     sprintf(buffer, "%d", fileSize);
-    send(sock, buffer, size, 0);
-    sleep(0.01);
+    //send(sock, buffer, size, 0);
+    sendto(sock, buffer, size, 0, (struct sockaddr*) &si_other, slen);
+    sleep(1);
 
     while(fileSize > 0){
         bzero(buffer, size);
@@ -54,15 +60,17 @@ int upload(char* buffer, int size, int sock){
             message_length = fread(buffer, size, 1, f); // количество
 
             if(message_length != 0)
-                    send(sock, buffer, size, 0);
-                    sleep(0.01);
+                    //send(sock, buffer, size, 0);
+                    sendto(sock, buffer, size, 0, (struct sockaddr*) &si_other, slen);
+                    sleep(1);
         }
         else{
             message_length = fread(buffer, fileSize, 1, f);
 
             if(message_length != 0)
-                    send(sock, buffer, fileSize, 0);
-                    sleep(0.01);
+                    //send(sock, buffer, fileSize, 0);
+                    sendto(sock, buffer, fileSize, 0, (struct sockaddr*) &si_other, slen);
+                    sleep(1);
         }
         fileSize -= size;
     }
@@ -72,4 +80,3 @@ int upload(char* buffer, int size, int sock){
 }
 
 #endif // UPLOAD
-
